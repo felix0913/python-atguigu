@@ -2,11 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import datetime
 
+
 # Create your models here.
 
 class UserProfile(AbstractUser):
     image = models.ImageField(upload_to='user/', max_length=200,
-                              verbose_name='用户头像', null=True
+                              verbose_name='用户头像', null=True,
                               blank=True)
     nick_name = models.CharField(max_length=20, verbose_name='用户昵称',
                                  null=True, blank=True)
@@ -19,7 +20,7 @@ class UserProfile(AbstractUser):
                                null=True, blank=True)
     phone = models.CharField(max_length=11, verbose_name='用户手机',
                              null=True, blank=True)
-    add_time = models.DateTimeField(default=datatime.now, verbose_name='添加时间')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     def __str__(self):
         return self.username
@@ -28,12 +29,13 @@ class UserProfile(AbstractUser):
         verbose_name = '用户信息'
         verbose_name_plural = verbose_name
 
+
 class BannerInfo(models.Model):
     image = models.ImageField(upload_to='banner/', verbose_name='轮播图片',
                               max_length=200)
     url = models.URLField(default='http://www.atguigu.com', max_length=200,
                           verbose_name='图片链接')
-    add_time = models.DateTimeField(default=datatime.now, verbose_name='添加时间')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     def __str__(self):
         return str(self.image)
@@ -42,6 +44,19 @@ class BannerInfo(models.Model):
         verbose_name = '轮播图信息'
         verbose_name_plural = verbose_name
 
+
 class EmailVerifyCode(models.Model):
     code = models.CharField(max_length=20, verbose_name='邮箱验证码')
     email = models.EmailField(max_length=200, verbose_name='验证码邮箱')
+    send_type = models.IntegerField(choices=((1, 'register'),
+                                             (2, 'forget'),
+                                             (3, 'change')),
+                                    verbose_name='验证码类型')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+    def __str__(self):
+        return str(self.code)
+
+    class Meta:
+        verbose_name = '邮箱验证码信息'
+        verbose_name_plural = verbose_name
