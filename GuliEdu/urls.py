@@ -19,7 +19,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^users/', include('users.urls', namespace='users')),
-    url(r'^courses/', include('users.courses', namespace='courses')),
-    url(r'^operations', include('users.operations', namespace='operations')),
-    url(r'orgs', include('users.orgs', namespace='orgs')),
+    url(r'^courses/', include('courses.urls', namespace='courses')),
+    url(r'^operations', include('operations.urls', namespace='operations')),
+    url(r'orgs', include('orgs.urls', namespace='orgs')),
 ]
