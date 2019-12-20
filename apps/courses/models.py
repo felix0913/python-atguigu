@@ -48,7 +48,7 @@ class LessonInfo(models.Model):
         verbose_name_plural = verbose_name
 
 
-class Video(models.Model):
+class VideoInfo(models.Model):
     name = models.CharField(max_length=50, verbose_name='视频名称')
     study_time = models.IntegerField(default=0, verbose_name='视频时长')
     url = models.URLField(default='http://www.atguigu.com', verbose_name='视频链接', max_length=200)
